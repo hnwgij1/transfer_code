@@ -1,60 +1,27 @@
-package transfer_code 
+package transfer_code
 
 import (
 	"fmt"
 	"github.com/axgle/mahonia"
-	"io"
+	"github.com/hnwgij1/file"
 	"os"
 	"path/filepath"
 	"regexp"
 )
 
-func writeFile(fileName string, content string) {
-	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY, 0666)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer file.Close()        //关闭文件
-	file.WriteString(content) //写入文件
-}
-
-func readFile(fileName string) string {
-	file, err := os.Open(fileName)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-	fileSize,_ := file.Seek(0, io.SeekEnd)
-	content := make([]byte, fileSize)
-	file.Seek(0, io.SeekStart)
-	sumReadNum := 0
-	for {
-		readNum, err := file.Read(content)
-		if err != nil && err != io.EOF {
-			panic(err) //有错误抛出异常
-		}
-		if 0 == readNum {
-			break //当读取完毕时候退出循环
-		}
-		sumReadNum += readNum
-	}
-	return string(content[:sumReadNum])
-}
-
 func GbkToUtf8(fileName string) {
-	content := readFile(fileName)
+	content := file.ReadFile(fileName)
 	enc := mahonia.NewDecoder("gbk")
 	content = enc.ConvertString(content)
-	writeFile(fileName, content)
+	file.WriteFile(fileName, content)
 	fmt.Println("转换完成!")
 }
 
 func Utf8ToGbk(fileName string) {
-	content := readFile(fileName)
+	content := file.ReadFile(fileName)
 	enc := mahonia.NewEncoder("gbk")
 	content = enc.ConvertString(content)
-	writeFile(fileName, content)
+	file.WriteFile(fileName, content)
 	fmt.Println("转换完成!")
 }
 
