@@ -42,7 +42,7 @@ func readFile(fileName string) string {
 	return string(content[:sumReadNum])
 }
 
-func gbk_to_utf8(fileName string) {
+func GbkToUtf8(fileName string) {
 	content := readFile(fileName)
 	enc := mahonia.NewDecoder("gbk")
 	content = enc.ConvertString(content)
@@ -50,8 +50,7 @@ func gbk_to_utf8(fileName string) {
 	fmt.Println("转换完成!")
 }
 
-
-func utf8_to_gbk(fileName string) {
+func Utf8ToGbk(fileName string) {
 	content := readFile(fileName)
 	enc := mahonia.NewEncoder("gbk")
 	content = enc.ConvertString(content)
@@ -59,7 +58,7 @@ func utf8_to_gbk(fileName string) {
 	fmt.Println("转换完成!")
 }
 
-func direct_convert(directName string, convertFunc func(string)){
+func DirectConvert(directName string, convertFunc func(string)){
 	    err := filepath.Walk(directName, func(path string, f os.FileInfo, err error) error {
         if f == nil {
 			return err
