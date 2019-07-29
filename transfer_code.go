@@ -1,4 +1,4 @@
-package main
+package transfer_code 
 
 import (
 	"fmt"
@@ -84,8 +84,7 @@ func direct_convert(directName string, convertFunc func(string)){
 
 
 
-func main() {
-	fileName := "/home/deepin/rztt/ducp_ansi"
-	//direct_gbk_to_utf8(fileName, gbk_to_utf8)
-	direct_convert(fileName, utf8_to_gbk)
-}
+//func main() {
+//	direct_gbk_to_utf8(fileName, gbk_to_utf8)
+	//direct_convert(fileName, utf8_to_gbk)
+//}
